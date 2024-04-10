@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Professional</title>
+</head>
+<body>
+    <h1>Choose Professional</h1>
+    <form action="{% url 'choose_pro' %}" method="post">
+        {% csrf_token %}
+        <ul>
+            {% for professional in professionals_details %}
+            <li>
+                <label>
+                    <input type="checkbox" name="professional_ids" value="{{ professional.id }}">
+                    {{ professional }} - {{ professional.specialization }} - {{ professional.years_of_experience }} years of experience
+                </label>
+            </li>
+            {% endfor %}
+        </ul>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

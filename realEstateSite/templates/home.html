@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Type Selection</title>
+</head>
+<body>
+    <h1>Select User Type and Action</h1>
+    <form action="{% url 'user_type' %}" method="post">
+        {% csrf_token %}
+        <label for="user_type">Select User Type:</label>
+        <select id="user_type" name="user_type">
+            <option value="professional">Professional</option>
+            <option value="customer">Customer</option>
+        </select>
+        <br>
+        <input type="radio" id="register" name="action" value="register" checked>
+        <label for="register">Register</label>
+        <input type="radio" id="login" name="action" value="login">
+        <label for="login">Login</label>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+

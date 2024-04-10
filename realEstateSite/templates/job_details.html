@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details</title>
+</head>
+<body>
+    <h1>Job List {{customer.full_name}}</h1>
+    <ul>
+        {% for job in jobs %}
+            <li>
+                <form action="{% url 'job_details' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="job_id" value="{{ job.id }}">
+                    <button type="submit">{{ job.job_name }}</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% if job %}
+        <h2>{{ job.job_name }}</h2>
+        <p>Duration: {{ job.duration }}</p>
+        <p>Budget: {{ job.budget }}</p>
+
+        <h3>Approved Professionals</h3>
+        <ul>
+            {% for professional in approved_professionals %}
+                <li>{{ professional.professional }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Pending Professionals</h3>
+        <ul>
+            {% for professional in pending_professionals %}
+                <li>{{ professional.professional }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

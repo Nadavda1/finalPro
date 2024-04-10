@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>create new project house</title>
+</head>
+<body>
+    <p>{{ customer.full_name }}</p>
+    <form method="post">
+    {% csrf_token %}
+        {{ job_form.as_p }}
+    {%  for question, form in answer_forms  %}
+        <p>{{ question.question_text }}</p>
+        {{ form.as_p }}
+    {% endfor %}
+    <button type="submit">Submit Answers</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Job Approvals</title>
+</head>
+<body>
+    <h1>View Job Approvals</h1>
+    <form action="{% url 'job_offers' %}" method="post">
+        {% csrf_token %}
+        <ul>
+            {% for job_approval in job_approvals %}
+            <li>
+                <label>
+                    <input type="checkbox" name="job_approval_ids" value="{{ job_approval.id }}">
+                    Job name: {{ job_approval.job_detail.job_name }} -budget: {{ job_approval.job_detail.budget }} -Customer: {{ job_approval.job_detail.customer.full_name }}
+                </label>
+            </li>
+            {% endfor %}
+        </ul>
+        <button type="submit">Approve Selected Jobs</button>
+    </form>
+</body>
+</html>>
