@@ -2,6 +2,7 @@ from enum import Enum
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, AbstractUser
 from django.db import models
+from django.utils import timezone
 
 
 class UserManager(BaseUserManager):
@@ -43,10 +44,22 @@ class Professional(AbstractBaseUser):
     number_of_jobs = models.IntegerField()
     years_of_experience = models.IntegerField()
     is_available = models.BooleanField(default=False)
+    average_rating = models.DecimalField(default=0, max_digits=3, decimal_places=2)
+
     objects = UserManager()
 
     USERNAME_FIELD = 'full_name'
     REQUIRED_FIELDS = ['username', 'specialization', 'number_of_jobs', 'years_of_experience']
+
+    def update_average_rating(self, new_rating):
+        total_ratings = self.number_of_jobs
+        current_total_rating = self.average_rating * total_ratings
+        new_total_rating = current_total_rating + new_rating
+        new_average_rating = new_total_rating / (
+                total_ratings + 1)  # Incrementing total_ratings by 1 for the new rating
+        self.average_rating = new_average_rating
+        self.number_of_jobs += 1
+        self.save()
 
 
 class Question(models.Model):
@@ -72,8 +85,18 @@ class JobDetail(models.Model):
     job_name = models.CharField(max_length=255)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     budget = models.DecimalField(max_digits=10, decimal_places=2)
-
+    detail_of_project = models.TextField()
+    start_time = models.DateTimeField(blank=True, null=True)
+    end_time = models.DateTimeField(blank=True, null=True)
+    project_ended = models.BooleanField(default=False)
     objects = models.Manager()
+
+    def check_project_status(self):
+        if self.end_time and timezone.now() > self.end_time:
+            self.project_ended = True
+        else:
+            self.project_ended = False
+        self.save()
 
 
 class AnswerJob(models.Model):

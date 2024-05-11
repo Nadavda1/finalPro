@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rate Professionals</title>
+</head>
+<body>
+   <form method="post">
+        {% csrf_token %}
+        <select name="professional_id">
+            {% for professional in professionals %}
+                <option value="{{ professional.id }}">{{ professional.professional }}</option>
+                <input type="hidden" name="professional_id" value="{{ request.session.professional_id }}">
+                </select>
+                <label for="rating">Rating (1-5):</label>
+                <input type="number" name="rating" min="1" max="5">
+                <button type="submit">Rate</button>
+            {% endfor %}
+
+    </form>
+</body>
+</html>

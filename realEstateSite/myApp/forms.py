@@ -63,7 +63,7 @@ class AnswerForm(forms.ModelForm):
 class JobDetailForm(forms.ModelForm):
     class Meta:
         model = JobDetail
-        fields = ['job_name', 'budget']
+        fields = ['job_name', 'budget', 'detail_of_project', 'start_time', 'end_time']
 
 
 class AnswerJobForm(forms.ModelForm):

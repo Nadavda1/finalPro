@@ -14,7 +14,7 @@
             <li>
                 <label>
                     <input type="checkbox" name="professional_ids" value="{{ professional.id }}">
-                    {{ professional }} - {{ professional.specialization }} - {{ professional.years_of_experience }} years of experience
+                    {{ professional }} - {{ professional.specialization }} - {{ professional.years_of_experience }} years of experience. rating: {{ professional.average_rating }}
                 </label>
             </li>
             {% endfor %}

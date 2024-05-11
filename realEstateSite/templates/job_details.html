@@ -21,7 +21,8 @@
 
     {% if job %}
         <h2>{{ job.job_name }}</h2>
-        <p>Duration: {{ job.duration }}</p>
+        <p>start time: {{ job.start_time }}</p>
+        <p>end time: {{ job.end_time }}</p>
         <p>Budget: {{ job.budget }}</p>
 
         <h3>Approved Professionals</h3>
@@ -37,6 +38,10 @@
                 <li>{{ professional.professional }}</li>
             {% endfor %}
         </ul>
+        {% if  job.project_ended %}
+            <a href="{% url 'rate_professionals' %}"> please rate the professionals in your project </a><br>
+        {% endif %}
+
     {% endif %}
 </body>
 </html>

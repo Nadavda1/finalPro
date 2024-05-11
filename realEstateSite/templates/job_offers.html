@@ -14,7 +14,7 @@
             <li>
                 <label>
                     <input type="checkbox" name="job_approval_ids" value="{{ job_approval.id }}">
-                    Job name: {{ job_approval.job_detail.job_name }} -budget: {{ job_approval.job_detail.budget }} -Customer: {{ job_approval.job_detail.customer.full_name }}
+                    Job name: {{ job_approval.job_detail.job_name }} -budget: {{ job_approval.job_detail.budget }} -Customer: {{ job_approval.job_detail.customer.full_name }}  -explanation: {{ job_approval.job_detail.detail_of_project }}
                 </label>
             </li>
             {% endfor %}
