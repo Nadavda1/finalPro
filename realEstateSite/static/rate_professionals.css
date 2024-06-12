@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#bg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 20%;
+    background-attachment: fixed;
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    max-height: 80%;
+    padding: 20px;
+    background-color: #d1e3ff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.professional-block {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #d1e3ff;
+    border-radius: 5px;
+}
+
+.professional-block h2 {
+    margin-bottom: 10px;
+    color: black;
+}
+
+.rating {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.rating label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.rating input[type="radio"] {
+    margin-right: 5px;
+}
+
+.review {
+    margin-top: 10px;
+}
+
+.review label {
+    display: block;
+    margin-bottom: 5px;
+    color: black;
+}
+
+.review textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+.submit-button {
+    display: block;
+    width: 50%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    margin-left: 120px;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+#home-button {
+    position: absolute;
+    background-color: #ffffff00;
+    color: black;
+    border: none;
+    top: 15px;
+    right: 160px;
+    text-decoration: none;
+}
+
+#reg-button {
+    position: absolute;
+    background-color: #ffffff00;
+    color: black;
+    border: none;
+    top: 15px;
+    right: 20px;
+    text-decoration: none;
+}
+

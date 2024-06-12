@@ -1,47 +1,114 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'job_details.css' %}">
 </head>
-<body>
-    <h1>Job List {{customer.full_name}}</h1>
-    <ul>
-        {% for job in jobs %}
-            <li>
-                <form action="{% url 'job_details' %}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="job_id" value="{{ job.id }}">
-                    <button type="submit">{{ job.job_name }}</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
-
-    {% if job %}
-        <h2>{{ job.job_name }}</h2>
-        <p>start time: {{ job.start_time }}</p>
-        <p>end time: {{ job.end_time }}</p>
-        <p>Budget: {{ job.budget }}</p>
-
-        <h3>Approved Professionals</h3>
-        <ul>
-            {% for professional in approved_professionals %}
-                <li>{{ professional.professional }}</li>
+<body id="bg" style="background-image:url('{% static 'images/choose_bg.jpg' %}');">
+    <a id="reg-button" href="{% url 'customer_home' %}">Customer Home</a>
+    <a id="home-button" href="{% url 'Home_new' %}">Home</a>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Projects List</h1>
+        <div class="row">
+            {% for job in jobs %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ job.job_name }}</h5>
+                            <form action="{% url 'job_details' %}" method="post" class="mt-auto">
+                                {% csrf_token %}
+                                <input type="hidden" name="job_id" value="{{ job.id }}">
+                                <button type="submit" class="btn btn-primary btn-block">View Details</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
 
-        <h3>Pending Professionals</h3>
-        <ul>
-            {% for professional in pending_professionals %}
-                <li>{{ professional.professional }}</li>
-            {% endfor %}
-        </ul>
-        {% if  job.project_ended %}
-            <a href="{% url 'rate_professionals' %}"> please rate the professionals in your project </a><br>
+        {% if job %}
+            <div class="mt-5">
+                <h2>{{ job.job_name }}</h2>
+                <div class="timeline">
+                    <div class="timeline-step left">
+                        <div class="timeline-content">
+                            <p class="timeline-date">Start Time: {{ job.start_time }}</p>
+                        </div>
+                    </div>
+                    <div class="timeline-progress"></div> <!-- Progress bar -->
+                    <div class="timeline-step right">
+                        <div class="timeline-content">
+                            <p class="timeline-date">End Time: {{ job.end_time }}</p>
+                        </div>
+                    </div>
+                </div>
+                <h3>Project budget: {{job.budget}}</h3>
+                <h3>remaining budget: {{remain}}</h3>
+
+
+                <h3>Approved Professionals</h3>
+                <table id="table01" class="table">
+                    <thead>
+                        <tr>
+                            <th>Professional</th>
+                            <th>Specialization</th>
+                            <th>Salary</th>
+                            <th>Contract</th>
+                         </tr>
+                    </thead>
+                <tbody>
+                    {% for professional in approved_professionals %}
+                    <tr>
+                        <td class="pro">{{ professional.professional }}</td>
+                        <td class="pro">{{ professional.professional.specialization }}</td>
+                        <td class="pro">{{ professional.salary }}</td>
+                          <td class="pro">  <a href="{% url 'view_contract' professional.professional.id professional.job_detail_id%}"
+                                               style="color: {% if professional.contract_approved %}green{% else %}red{% endif %}; font-weight: bold;">View Contract</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+
+                 <h3>Pending Professionals</h3>
+                <table id="table02" class="table">
+                    <thead>
+                        <tr>
+                            <th>Professional</th>
+                            <th>Specialization</th>
+                            <th>Salary</th>
+
+                         </tr>
+                    </thead>
+                <tbody>
+                    {% for professional in pending_professionals %}
+                    <tr>
+                        <td class="pro">{{ professional.professional }}</td>
+                        <td class="pro">{{ professional.professional.specialization }}</td>
+                        <td class="pro">{{ professional.salary }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+
+                {% if  job.project_ended %}
+                <h4>Help us rate the professionals</h4>
+                <a id="bb" href="{% url 'rate_professionals' %}" class="btn_rate">Rate the professionals in this project</a>
+                {% endif %}
+            </div>
         {% endif %}
+    </div>
 
-    {% endif %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="{% static 'script.js' %}"></script>
 </body>
 </html>
+
+

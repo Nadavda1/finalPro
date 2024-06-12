@@ -1,22 +1,52 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rate Professionals</title>
+    <link rel="stylesheet" href="{% static 'rate_professionals.css' %}">
 </head>
-<body>
-   <form method="post">
-        {% csrf_token %}
-        <select name="professional_id">
-            {% for professional in professionals %}
-                <option value="{{ professional.id }}">{{ professional.professional }}</option>
-                <input type="hidden" name="professional_id" value="{{ request.session.professional_id }}">
-                </select>
-                <label for="rating">Rating (1-5):</label>
-                <input type="number" name="rating" min="1" max="5">
-                <button type="submit">Rate</button>
+<body id="bg" style="background-image:url('{% static 'images/choose_bg.jpg' %}');">
+    <a id="reg-button" href="{% url 'customer_home' %}">Customer Home</a>
+    <a id="home-button" href="{% url 'Home_new' %}">Home</a>
+    <div class="container">
+        <h1>Rate Your Professionals</h1>
+        <form method="post">
+            {% csrf_token %}
+            {% for approval in professionals %}
+            <div class="professional-block">
+                <h2>{{ approval.professional }}</h2>
+                <input type="hidden" name="professional_id_{{ approval.professional.id }}" value="{{ approval.professional.id }}">
+                <div class="rating">
+                    <label>
+                        <input type="radio" name="rating_{{ approval.professional.id }}" value="1"> 1
+                    </label>
+                    <label>
+                        <input type="radio" name="rating_{{ approval.professional.id }}" value="2"> 2
+                    </label>
+                    <label>
+                        <input type="radio" name="rating_{{ approval.professional.id }}" value="3"> 3
+                    </label>
+                    <label>
+                        <input type="radio" name="rating_{{ approval.professional.id }}" value="4"> 4
+                    </label>
+                    <label>
+                        <input type="radio" name="rating_{{ approval.professional.id }}" value="5"> 5
+                    </label>
+                </div>
+                <div class="review">
+                    <label for="review_{{ approval.professional.id }}">Review:</label>
+                    <textarea name="review_{{ approval.professional.id }}" id="review_{{ approval.professional.id }}" rows="4"></textarea>
+                </div>
+            </div>
             {% endfor %}
-
-    </form>
+            <button type="submit" class="submit-button">Submit Ratings</button>
+        </form>
+    </div>
 </body>
 </html>
+
+
+
+

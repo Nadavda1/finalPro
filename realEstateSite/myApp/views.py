@@ -7,15 +7,17 @@ from django.contrib.auth.hashers import check_password
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 
-
-def home(request):
+def Home_new(request):
     num_customers = Customer.objects.count()
     num_professionals = Professional.objects.count()
     count_users = num_customers + num_professionals
     num_jobs = JobDetail.objects.count()
 
-    return render(request, 'home.html', {'count_users': count_users,
+    return render(request, 'Home_new.html', {'count_users': count_users,
                                          'num_jobs': num_jobs})
+
+def home(request):
+    return render(request, 'home.html')
 
 
 def customer_register(request):
@@ -153,6 +155,7 @@ def get_matching_professionals(new_job_detail):
         # need to check if professional exists
         if best_professional:
             professionals.append(best_professional.full_name)
+        professionals = list(dict.fromkeys(professionals))
 
     return professionals
 
@@ -195,10 +198,14 @@ def job_detail(request):
 
         approved_professionals = JobApproval.objects.filter(job_detail=job, approved=True)
         pending_professionals = JobApproval.objects.filter(job_detail=job, approved=False)
+        remain = job.budget
+        for i in approved_professionals:
+            remain -= i.salary
+
         job.check_project_status()
         request.session['job_id'] = job_id
         return render(request, 'job_details.html', {'job': job, 'approved_professionals': approved_professionals,
-                                                    'pending_professionals': pending_professionals})
+                                                    'pending_professionals': pending_professionals, 'remain': remain})
 
     else:
         customer_id = request.session['customer_id']
@@ -233,9 +240,22 @@ def professional_home(request):
     if 'professional_id' in request.session:
         professional_id = request.session['professional_id']
         professional = Professional.objects.get(id=professional_id)
-        return render(request, 'professional_home.html', {'professional': professional})
+        approved_jobs = JobApproval.objects.filter(professional=professional, approved=True)
+        job_approvals = JobApproval.objects.filter(professional=professional, approved=False)
+
+        return render(request, 'professional_home.html', {
+            'professional': professional,
+            'approved_jobs': approved_jobs,
+            'job_approvals': job_approvals,
+        })
     return render(request, 'professional_home.html')
 
+def get_total_score(new_job_detail):
+    sumV = 0
+    answer_jobs = AnswerJob.objects.filter(jobDetail=new_job_detail)
+    for ans in answer_jobs:
+        sumV += ans.answer_value
+    return sumV
 
 def choose_pro(request):
     if request.method == 'POST':
@@ -243,9 +263,13 @@ def choose_pro(request):
         new_job_detail_id = request.session.get('new_job_detail_id')
         new_job_detail = JobDetail.objects.get(id=new_job_detail_id)
 
+        total_score = get_total_score(new_job_detail)
+        sortProSalary = new_job_detail.determine_professional_priority(total_score)
+
         for professional_id in selected_professionals_ids:
             professional = Professional.objects.get(id=professional_id)
-            JobApproval.objects.create(job_detail=new_job_detail, professional=professional)
+            salary = professional.money_for_pro(new_job_detail.budget, sortProSalary)
+            JobApproval.objects.create(job_detail=new_job_detail, professional=professional, salary=salary)
 
         # Redirect to a success page or wherever needed
         return redirect('customer_home')
@@ -282,14 +306,32 @@ def job_offers(request):
 def rate_professionals(request):
     job_id = request.session.get('job_id')
     job = JobDetail.objects.get(id=job_id)
-    professionals = JobApproval.objects.filter(job_detail=job, approved=True)
+    professionals = JobApproval.objects.filter(job_detail=job, approved=True).select_related('professional')
 
     if request.method == 'POST':
-        professional_id = request.POST.get('professional_id')
-        rating = request.POST.get('rating')
-        # Retrieve the professional and update their rating
-        professional = get_object_or_404(Professional, id=professional_id)
-        professional.update_average_rating(int(rating))
+        for professional in professionals:
+            professional_id = request.POST.get(f'professional_id_{professional.professional.id}')
+            rating = request.POST.get(f'rating_{professional.professional.id}')
+            if professional_id and rating:
+                professional_obj = get_object_or_404(Professional, id=professional_id)
+                professional_obj.update_average_rating(int(rating))
         return redirect('job_details')
 
     return render(request, 'rate_professionals.html', {'professionals': professionals})
+
+
+def view_contract(request, professional_id, job_detail_id):
+    professional = get_object_or_404(Professional, pk=professional_id)
+    job_detail = get_object_or_404(JobDetail, pk=job_detail_id)
+    contract = get_object_or_404(JobApproval, professional=professional, job_detail=job_detail)
+
+    if request.method == 'POST' and 'approve' in request.POST:
+        contract.contract_approved = True
+        contract.save()
+        return redirect('job_details')
+
+    return render(request, 'view_contract.html', {
+        'contract': contract,
+        'professional': professional,
+        'job_detail': job_detail
+})

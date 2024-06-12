@@ -1,25 +1,40 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Job Approvals</title>
+    <link rel="stylesheet" href="{% static 'job_offers.css' %}">
 </head>
-<body>
-    <h1>View Job Approvals</h1>
-    <form action="{% url 'job_offers' %}" method="post">
-        {% csrf_token %}
-        <ul>
-            {% for job_approval in job_approvals %}
-            <li>
-                <label>
-                    <input type="checkbox" name="job_approval_ids" value="{{ job_approval.id }}">
-                    Job name: {{ job_approval.job_detail.job_name }} -budget: {{ job_approval.job_detail.budget }} -Customer: {{ job_approval.job_detail.customer.full_name }}  -explanation: {{ job_approval.job_detail.detail_of_project }}
-                </label>
-            </li>
-            {% endfor %}
-        </ul>
-        <button type="submit">Approve Selected Jobs</button>
-    </form>
+<body id="bg" style="background-image:url('{% static 'images/choose_bg.jpg' %}');">
+    <a id="reg-button" href="{% url 'professional_home' %}">Professional Home</a>
+    <a id="home-button" href="{% url 'Home_new' %}">Home</a>
+    <div class="container">
+        <h1>View Job Approvals</h1>
+        <form action="{% url 'job_offers' %}" method="post">
+            {% csrf_token %}
+            <div class="job-approval-container">
+                <ul>
+                    {% for job_approval in job_approvals %}
+                    <li>
+                        <div class="job-approval-card">
+                            <input type="checkbox" id="job_approval_{{ job_approval.id }}" name="job_approval_ids" value="{{ job_approval.id }}">
+                            <label for="job_approval_{{ job_approval.id }}">
+                                <div class="job-details">
+                                    <strong>{{ job_approval.job_detail.job_name }}</strong>
+                                    <p>Customer: {{ job_approval.job_detail.customer.full_name }}</p>
+                                    <p>Explanation: {{ job_approval.job_detail.detail_of_project }}</p>
+                                    <p>Salary: {{ job_approval.salary }}</p>
+                                </div>
+                            </label>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <button type="submit">Approve Selected Jobs</button>
+        </form>
+    </div>
 </body>
-</html>>
+</html>

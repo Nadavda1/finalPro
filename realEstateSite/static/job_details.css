@@ -1,0 +1,249 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+#bg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 20%;
+    background-attachment: fixed;
+}
+
+/* Container and Heading Styles */
+.container {
+    margin-top: 50px;
+}
+
+.special-job-title {
+    font-family: 'YourSpecialFont', sans-serif; /* Replace 'YourSpecialFont' with your desired font */
+    color: #114894; /* Replace with your desired color */
+    font-size: 36px; /* Optional: Adjust the font size */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a text shadow for a subtle effect */
+    font-weight: bold; /* Optional: Make the font bold */
+}
+
+h1, h2 {
+    color: black;
+}
+
+h1 {
+    margin-bottom: 30px;
+}
+
+h2 {
+    margin-top: 30px;
+}
+
+p {
+    color: black;
+    font-size: 16px;
+}
+
+/* Card Styles */
+.card {
+    background-color: #acd7f6c1;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-title {
+    color: black;
+    margin-bottom: 15px;
+    font-size: 1.25rem;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Button Styles */
+button, .btn {
+    background-color: #312929;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, .btn:hover {
+    background-color: #312929;
+}
+
+#bb {
+     background-color: red;
+}
+
+/* List Group Styles */
+.list-group-item {
+    border: none;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.list-group-item:last-child {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Timeline Styles */
+.timeline {
+    position: relative;
+    padding: 20px 0;
+    margin-top: 20px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: #007bff;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+}
+
+.timeline-step {
+    padding: 10px 40px;
+    position: relative;
+    background: inherit;
+    border-radius: 6px;
+    width: 50%;
+}
+
+.timeline-step.left {
+    left: 0;
+}
+
+.timeline-step.right {
+    left: 50%;
+}
+
+.timeline-step::before {
+    content: ' ';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: -30px;
+    background-color: black;
+    border: 4px solid #FFF;
+    top: 15px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.timeline-step.right::before {
+    left: -30px;
+}
+
+.timeline-content {
+    padding: 20px 30px;
+    background: #007bff;
+    position: relative;
+    border-radius: 6px;
+    color: #fff;
+}
+
+.timeline-date {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.timeline-progress {
+    height: 4px;
+    background-color: #007bff;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 0;
+    transition: width 0.3s ease;
+}
+
+/* Table Styles */
+.table-responsive {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #312929;
+    color: white;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+#table01 {
+    background-color: #2acb5ab6;
+}
+
+#table02 {
+    background-color: #e61a1ab6;
+}
+
+#home-button {
+    position: absolute;
+    background-color: #ffffff00;
+    color: black;
+    border: none;
+    top: 15px;
+    right: 160px;
+}
+
+#reg-button {
+    position: absolute;
+    background-color: #ffffff00;
+    color: black;
+    border: none;
+    top: 15px;
+    right: 20px;
+}
+
+.reduced-size {
+    font-size: 18px;
+    padding: 5px 10px;
+    width: 500px;
+}
+
+h4 {
+    margin-left: 350px;
+}
+
+.btn_rate {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease;
+    margin-left: 365px;
+}

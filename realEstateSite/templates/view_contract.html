@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contract Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        .contract-section {
+            margin-bottom: 20px;
+        }
+        .contract-section h5 {
+            font-weight: bold;
+        }
+        .contract-section p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Contract Details</h1>
+        <div class="card">
+            <div class="card-body">
+                <div class="contract-section">
+                    <h5>1. Parties</h5>
+                    <p><strong>Customer:</strong> {{ contract.job_detail.customer.full_name }}</p>
+                    <p><strong>Professional:</strong> {{ professional.full_name }}</p>
+                    <p><strong>Specialization:</strong> {{ professional.specialization }}</p>
+                </div>
+
+                <div class="contract-section">
+                    <h5>2. Project Details</h5>
+                    <p><strong>Job Name:</strong> {{ job_detail.job_name }}</p>
+                    <p><strong>Start Date:</strong> {{ job_detail.start_time }}</p>
+                    <p><strong>End Date:</strong> {{ job_detail.end_time }}</p>
+
+                </div>
+
+                <div class="contract-section">
+                    <h5>3. Responsibilities</h5>
+                    <p>The Professional agrees to perform the following services:</p>
+                    <ul>
+                        <li>Complete the job as described under project details.</li>
+                        <li>Provide necessary equipment and tools for the job.</li>
+                        <li>Maintain regular communication with the Customer.</li>
+                    </ul>
+                    <p>The Customer agrees to:</p>
+                    <ul>
+                        <li>Provide access to the job site.</li>
+                        <li>Make timely payments as agreed.</li>
+                        <li>Provide any necessary documentation or information.</li>
+                    </ul>
+                </div>
+
+                <div class="contract-section">
+                    <h5>4. Financial Terms</h5>
+                    <p><strong>Salary:</strong> {{ contract.salary }}</p>
+                    <p>Payment will be made according to the following schedule:</p>
+                    <ul>
+                        <li>Initial deposit of 20% upon signing this contract.</li>
+                        <li>50% upon completion of 50% of the job.</li>
+                        <li>30% upon final approval of the job by the Customer.</li>
+                    </ul>
+                </div>
+
+                <div class="contract-section">
+                    <h5>5. Termination</h5>
+                    <p>This contract may be terminated by either party under the following conditions:</p>
+                    <ul>
+                        <li>Mutual agreement by both parties.</li>
+                        <li>Breach of contract terms by either party.</li>
+                        <li>Unexpected events making continuation of the job impossible.</li>
+                    </ul>
+                </div>
+
+                <div class="contract-section">
+                    <h5>6. Additional Terms</h5>
+                    <p>Any additional terms or amendments to this contract must be agreed upon in writing by both parties.</p>
+                </div>
+
+                <div class="contract-section">
+                    <h5>7. Signatures</h5>
+                    <p>This contract is agreed to and signed by the following parties:</p>
+                    <p>For continuation and conclusion between the parties, they will discuss independently</p>
+
+                    <p>Customer: ____________________________ Date: ________________</p>
+                    <p>Professional: _________________________ Date: ________________</p>
+                </div>
+                <div class="contract-section">
+                    <h5>9. Approval</h5>
+                    {% if not contract.contract_approved %}
+                        <form action="{% url 'view_contract' professional.id job_detail.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="approve" class="btn btn-success">Approve Contract</button>
+                        </form>
+                    {% else %}
+                        <p class="text-success">This contract has been approved.</p>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+        <a href="{% url 'job_details' %}" class="btn btn-primary mt-4">Back to Job Details</a>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

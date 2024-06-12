@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+}
+
+#bg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 20%;
+    background-attachment: fixed;
+}
+
+.container {
+    background-color: #acd7f6c1;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 90px;
+    padding: 20px;
+    max-width: 600px;
+
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: black;
+    text-align: center;
+}
+
+.question-block {
+    margin-bottom: 20px;
+}
+
+.question-text {
+    font-size: 16px;
+    color: black;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    appearance: none;
+}
+
+button[type="submit"] {
+    background-color: #2b1f7a;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 400px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 50%;
+    display: block; /* Make the button a block element */
+    margin: 0 auto; /* Center the button horizontally */
+}
+
+#home-button {
+    position: absolute;
+    background-color: #ffffff00;
+    color: black;
+    border: none;
+    top: 15px;
+    right: 180px;
+}
+
+#reg-button {
+    position: absolute;
+    background-color: #ffffff00;
+    color: black;
+    border: none;
+    top: 15px;
+    right: 20px;
+}

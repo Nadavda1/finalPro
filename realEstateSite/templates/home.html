@@ -1,30 +1,45 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Type Selection</title>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static '/home.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static '/script.js' %}" defer></script>
 </head>
 <body>
-    <h1>Select User Type and Action</h1>
-    <form action="{% url 'user_type' %}" method="post">
-        {% csrf_token %}
-        <label for="user_type">Select User Type:</label>
-        <select id="user_type" name="user_type">
-            <option value="professional">Professional</option>
-            <option value="customer">Customer</option>
-        </select>
-        <br>
-        <input type="radio" id="register" name="action" value="register" checked>
-        <label for="register">Register</label>
-        <input type="radio" id="login" name="action" value="login">
-        <label for="login">Login</label>
-        <br>
-        <button type="submit">Submit</button>
-    </form>
-    <h2>We already have users and jobs created, you should join us!!</h2>
-    <p>Number of users: {{ count_users }}</p>
-    <p>Total number of jobs created: {{ num_jobs }}</p>
+    <div class="stam-img">
+        <img src="{% static 'images/check.png' %}" alt="">
+    </div>
+    <a id="home-button" href="{% url 'Home_new' %}">Home</a>
+    <div class="outer-container d-flex justify-content-center align-items-center">
+        <div class="inner-container text-center">
+            <h1 class="mb-4 custom-heading">Login/Register</h1>
+            <form action="{% url 'user_type' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="user_type">Select User Type:</label>
+                    <select class="form-control" id="user_type" name="user_type">
+                        <option value="professional">Professional</option>
+                        <option value="customer">Customer</option>
+                    </select>
+                </div>
+                <div class="form-group form-check">
+                    <input type="radio" class="form-check-input" id="register" name="action" value="register" checked>
+                    <label class="form-check-label" for="register">Register</label>
+                </div>
+                <div class="form-group form-check">
+                    <input type="radio" class="form-check-input" id="login" name="action" value="login">
+                    <label class="form-check-label" for="login">Login</label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
-

@@ -1,20 +1,34 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>create new project house</title>
+    <title>Create New Project</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static '/job_create.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static '/script.js' %}" defer></script>
 </head>
-<body>
-    <p>{{ customer.full_name }}</p>
-    <form method="post">
-    {% csrf_token %}
-        {{ job_form.as_p }}
-    {%  for question, form in answer_forms  %}
-        <p>{{ question.question_text }}</p>
-        {{ form.as_p }}
-    {% endfor %}
-    <button type="submit">Submit Answers</button>
-</form>
+<body id="bg" style="background-image:url('{% static 'images/choose_bg.jpg' %}');">
+    <a id="reg-button" href="{% url 'customer_home' %}">Customer Home</a>
+    <a id="home-button" href="{% url 'Home_new' %}">Home</a>
+    <div class="container">
+        <h2>Create New Project</h2>
+        <p class="customer-name">{{ customer.full_name }}</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ job_form.as_p }}
+            {% for question, form in answer_forms %}
+                <div class="question-block">
+                    <p class="question-text">{{ question.question_text }}</p>
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+            <button type="submit" class="submit-button">Submit Answers</button>
+        </form>
+    </div>
 </body>
 </html>

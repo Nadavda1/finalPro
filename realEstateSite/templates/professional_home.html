@@ -1,13 +1,56 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'professional_home.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'script.js' %}" defer></script>
 </head>
-<body>
-    <h2>Welcome, {{professional.full_name}} </h2>
-    <a href="{% url 'get_detail_professional' %}">define what project you want to work</a><br>
-    <a href="{% url 'job_offers' %}">To view job offers</a><br>
+<body id="bg" style="background-image:url('{% static 'images/choose_bg.jpg' %}');">
+    <a id="reg-button" href="{% url 'home' %}">Login/Register</a>
+    <a id="home-button" href="{% url 'Home_new' %}">Home</a>
+    <div class="container">
+        <h2>Welcome, {{ professional.full_name }}</h2>
+        <div class="card">
+            <a href="{% url 'get_detail_professional' %}">
+                <div class="card-content">
+                    <h3>Define Yourself</h3>
+                    <p>Specify the projects you want to work on.</p>
+                </div>
+            </a>
+        </div>
+        <div class="card {% if job_approvals %}new-job-offers{% endif %}">
+            <a href="{% url 'job_offers' %}">
+                <div class="card-content">
+                    <h3>View Job Offers</h3>
+                    <p>Check out the latest job offers available for you.</p>
+                </div>
+            </a>
+        </div>
+        {% if approved_jobs %}
+            <h3>Your Approved Jobs</h3>
+            <div class="approved-jobs">
+                <ul>
+                    {% for job in approved_jobs %}
+                        <li class="job-item">
+                            <h4>{{ job.job_detail.job_name }}</h4>
+                            <p>{{ job.job_detail.detail_of_project }}</p>
+                            <p><strong>End of the project:</strong> {{ job.job_detail.end_time }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <p>No approved jobs at the moment.</p>
+        {% endif %}
+    </div>
 </body>
 </html>
+
+

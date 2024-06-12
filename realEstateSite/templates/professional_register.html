@@ -1,16 +1,32 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'professional_register.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'script.js' %}" defer></script>
 </head>
 <body>
-    <h1>Professional Registration</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+    <div class="stam-img">
+        <img src="{% static 'images/check.png' %}" alt="">
+    </div>
+    <a id="reg-button" href="{% url 'home' %}">Login/Register</a>
+    <a id="home-button" href="{% url 'Home_new' %}">Home</a>
+    <div class="outer-container d-flex justify-content-center align-items-center">
+        <div class="inner-container text-center">
+            <h1 class="mb-4 custom-heading">Professional Register</h1>
+            <form action="{% url 'professional_register' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,22 +1,46 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static '/professional_login.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static '/script.js' %}" defer></script>
 </head>
 <body>
-    <h1>Professional Login</h1>
-    <form method="post">
-        {% csrf_token %}
-        <input type="text" name="username" placeholder="username" required><br>
-        <input type="password" name="password" placeholder="Password" required><br>
-        <button type="submit">Login</button>
-        {% if error_message %}
-            <div class="alert alert-danger">
-                {{ error_message }}
-            </div>
-        {% endif %}
-    </form>
+    <div class="stam-img">
+        <img src="{% static 'images/check.png' %}" alt="">
+    </div>
+     <a id="reg-button" href="{% url 'home' %}">Login/Register</a>
+     <a id="home-button" href="{% url 'Home_new' %}">Home</a>
+     <div class="outer-container d-flex justify-content-center align-items-center">
+        <div class="inner-container">
+            <h1 class="text-center mb-4">Professional Login</h1>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your user name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        {% if error_message %}
+                            <div class="alert alert-danger mt-3" role="alert">
+                                {{ error_message }}
+                            </div>
+                        {% endif %}
+                    </form>
+                </div>
+        </div>
+    </div>
 </body>
 </html>

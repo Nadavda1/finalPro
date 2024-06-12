@@ -1,25 +1,41 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose Professional</title>
+    <link rel="stylesheet" href="{% static 'choose_pro.css' %}">
 </head>
-<body>
-    <h1>Choose Professional</h1>
-    <form action="{% url 'choose_pro' %}" method="post">
-        {% csrf_token %}
-        <ul>
-            {% for professional in professionals_details %}
-            <li>
-                <label>
-                    <input type="checkbox" name="professional_ids" value="{{ professional.id }}">
-                    {{ professional }} - {{ professional.specialization }} - {{ professional.years_of_experience }} years of experience. rating: {{ professional.average_rating }}
-                </label>
-            </li>
-            {% endfor %}
-        </ul>
-        <button type="submit">Submit</button>
-    </form>
+<body id="bg" style="background-image:url('{% static 'images/choose_bg.jpg' %}');">
+    <a id="reg-button" href="{% url 'customer_home' %}">Customer Home</a>
+    <a id="home-button" href="{% url 'Home_new' %}">Home</a>
+    <div class="container">
+        <h1>Choose Your Professionals</h1>
+        <form action="{% url 'choose_pro' %}" method="post">
+            {% csrf_token %}
+            <div class="professional-container">
+                <ul>
+                    {% for professional in professionals_details %}
+                    <li>
+                        <div class="professional-card">
+                            <input type="checkbox" id="professional_{{ professional.id }}" name="professional_ids" value="{{ professional.id }}">
+                            <label for="professional_{{ professional.id }}">
+                                <div class="professional-details">
+                                    <strong>{{ professional.full_name }}</strong>
+                                    <p>{{ professional.specialization }}</p>
+                                    <p>Experience: {{ professional.years_of_experience }} years</p>
+                                    <p>Rating: {{ professional.average_rating }}/5</p>
+                                </div>
+                            </label>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </body>
 </html>
+

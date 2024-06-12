@@ -1,16 +1,35 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static '/customer_register.css' %}">
 </head>
 <body>
-    <h1>Customer Registration</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+    <div class="stam-img">
+        <img src="{% static 'images/check.png' %}" alt="">
+    </div>
+    <a id="reg-button" href="{% url 'home' %}">Login/Register</a>
+    <a id="home-button" href="{% url 'Home_new' %}">Home</a>
+    <div class="outer-container d-flex justify-content-center align-items-center">
+        <div class="inner-container">
+            <h1 class="text-center mb-4">Customer Registration</h1>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
+
+
+
+
+

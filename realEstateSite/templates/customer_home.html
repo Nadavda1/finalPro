@@ -1,15 +1,38 @@
-<!-- customer_home.html -->
-
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static '/customer_home.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static '/script.js' %}" defer></script>
 </head>
-<body>
-    <h2>Welcome, Customer!</h2>
-    <a href="{% url 'job_create' %}">Choose a new job</a><br>
-    <a href="{% url 'job_details' %}">Track existing job</a>
+<body id="bg" style="background-image:url('{% static 'images/choose_bg.jpg' %}');">
+    <a id="reg-button" href="{% url 'home' %}">Login/Register</a>
+    <a id="home-button" href="{% url 'Home_new' %}">Home</a>
+    <div class="container">
+        <h2>Welcome, {{ customer.full_name }}</h2>
+        <div class="card">
+            <a href="{% url 'job_create' %}">
+                <div class="card-content">
+                    <h3>Create new project</h3>
+                    <p>Select this option to create and choose a new job.</p>
+                </div>
+            </a>
+        </div>
+        <div class="card">
+            <a href="{% url 'job_details' %}">
+                <div class="card-content">
+                    <h3>Track Existing Jobs</h3>
+                    <p>Click here to track the status of an existing jobs.</p>
+                </div>
+            </a>
+        </div>
+    </div>
 </body>
 </html>
